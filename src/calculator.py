@@ -45,6 +45,10 @@ def subtract(a, b):
 
 
 def divide(a, b):
+    """
+    Divide two numbers
+
+    """
     validate_numbers(a, b)
 
     result = a / b
