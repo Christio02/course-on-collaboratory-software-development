@@ -44,7 +44,7 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v6
         with:
-            enable-cache: true
+          enable-cache: true
 
       # Step 4 (optional): Run pre-commit hooks against the whole repo
       # Using uv's pip shim to install pre-commit into the system env.
@@ -69,18 +69,19 @@ jobs:
       - name: Run root tests
         run: |
           # TODO: replace with real test command
+          uv run pytest
           echo "Running tests..."
 
   # Secondary job: auto-merge Dependabot PRs after CI passes
   dependabot:
-    name: 'Dependabot'
-    needs: [build-and-test] 
+    name: "Dependabot"
+    needs: [build-and-test]
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request'}} 
+    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request'}}
     steps:
       - name: Enable auto-merge for Dependabot PRs
         # Uses Github CLI to automatically merge the PR if test passes
-        run: gh pr merge --auto --merge "$PR_URL" 
+        run: gh pr merge --auto --merge "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
