@@ -51,25 +51,47 @@ def divide(a, b):
     return format_result(result)
 
 
+def multiply(a, b):
+    """
+    Multiply two numbers together.
+
+    Args:
+        a (float): First number
+        b (float): Second number
+
+    Returns:
+        float: Product of a and b
+
+    Raises:
+        TypeError: If inputs are not numbers
+    """
+    validate_numbers(a, b)
+    result = a * b
+    return format_result(result)
+
+
 def main():
     """
     Simple interactive calculator for testing.
     """
     print("Simple Calculator")
-    print("Available operations: add, subtract, divide")
+    print("Available operations: add, subtract, multiply, divide")
     print("Type 'quit' to exit")
 
     while True:
         operation = (
-            input("\nEnter operation (add/subtract/divide/quit): ").lower().strip()
+            input("\nEnter operation (add/subtract/divide/multiply/quit): ")
+            .lower()
+            .strip()
         )
 
         if operation == "quit":
             print("Goodbye!")
             break
-        # TODO: Add handling for divide operation here
-        if operation not in ["add", "subtract", "divide"]:
-            print("Invalid operation. Please use 'add', 'subtract' or 'divide'")
+        if operation not in ["add", "subtract", "multiply", "divide"]:
+            print(
+                "Invalid operation. Please use 'add', 'subtract', 'multiply' or 'divide'"
+            )
             continue
 
         try:
@@ -85,7 +107,9 @@ def main():
             elif operation == "divide":
                 result = divide(a, b)
                 print(f"Result: {a} / {b} = {result}")
-
+            elif operation == "multiply":
+                result = multiply(a, b)
+                print(f"Result: {a} * {b} = {result}")
             # TODO: Add handling for divide operation here
         except ZeroDivisionError:
             print("Error: You divided by zero!")
